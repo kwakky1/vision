@@ -18,3 +18,5 @@ interface InputData {
   staff: string;
   store: string;
 }
+
+declare module 'react-svg-path'
