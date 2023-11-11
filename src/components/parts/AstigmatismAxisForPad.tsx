@@ -15,7 +15,9 @@ const EYE_AXIS = ({ RIGHT, LEFT }: { RIGHT: any, LEFT: any }) => {
     C_12: LEFT_C_12,
     AXIS_IMAGE: LEFT_AXIS_IMAGE
   } = getValidObject(LEFT, 'refractiveError')
-  const corneaSize = 128
+  const corneaSize = 134
+  const showRightAxis = (RIGHT.CV > 0 && RIGHT.AXI > 0)
+  const showLeftAxis = (LEFT.CV > 0 && LEFT.AXI > 0)
   return <Box style={{
     flex: 1,
     display: 'flex',
@@ -30,48 +32,51 @@ const EYE_AXIS = ({ RIGHT, LEFT }: { RIGHT: any, LEFT: any }) => {
       justifyContent: 'center',
       paddingTop: 36,
     }}>
-      <Image
-        alt={'ATR.png'}
-        src={`/images/astigmatismAxis/${LEFT_AXIS_IMAGE['CORNEA']}.svg`}
-        width={corneaSize}
-        height={corneaSize}
-        style={{
-          position: 'absolute',
-          marginTop: 52,
-          marginLeft: 34,
-          width: corneaSize,
-          height: corneaSize,
-          transform: `rotate(${180 - RIGHT.AXI}deg)`
-        }} />
+      {RIGHT.CV > 0 ?
+        <Image
+          alt={'ATR.png'}
+          src={`/images/astigmatismAxis/${RIGHT_AXIS_IMAGE['CORNEA']}.svg`}
+          width={corneaSize}
+          height={corneaSize}
+          style={{
+            position: 'absolute',
+            marginTop: 49,
+            marginLeft: 33,
+            width: corneaSize,
+            height: corneaSize,
+            transform: `rotate(${180 - RIGHT.AXI}deg)`
+          }} /> : null}
       <VRImage name={'axisRightEyePad'} style={{
         marginTop: 24,
         width: 284,
         height: 180,
         position: 'absolute',
       }} />
-      <Image
-        alt={'AXIS'}
-        src={`/images/astigmatismAxis/axisSimulation/AXIS.svg`}
-        width={corneaSize}
-        height={corneaSize}
-        style={{
-          position: 'absolute',
-          marginTop: 52,
-          marginLeft: 34,
-          width: corneaSize,
-          height: corneaSize,
-          transform: `rotate(${180 - RIGHT.AXI}deg)`
-        }} />
-      <Image
-        alt={'RIGHT_ATR.png'}
-        src={`/images/astigmatismAxis/${RIGHT_AXIS_IMAGE['SIMULATION']}.png`}
-        width={90}
-        height={90}
-        style={{
-          position: 'absolute',
-          marginLeft: -250,
-          marginTop: 156
-        }} />
+      {showRightAxis ?
+        <Image
+          alt={'AXIS'}
+          src={`/images/astigmatismAxis/axisSimulation/AXIS.svg`}
+          width={corneaSize}
+          height={corneaSize}
+          style={{
+            position: 'absolute',
+            marginTop: 49,
+            marginLeft: 36,
+            width: corneaSize,
+            height: corneaSize,
+            transform: `rotate(${180 - RIGHT.AXI}deg)`
+          }} /> : null}
+      {RIGHT.CV > 0 ?
+        <Image
+          alt={'RIGHT_ATR.png'}
+          src={`/images/astigmatismAxis/${RIGHT_AXIS_IMAGE['SIMULATION']}.png`}
+          width={90}
+          height={90}
+          style={{
+            position: 'absolute',
+            marginLeft: -250,
+            marginTop: 156
+          }} /> : null}
     </Box>
     <Box style={{
       display: 'flex',
@@ -84,50 +89,53 @@ const EYE_AXIS = ({ RIGHT, LEFT }: { RIGHT: any, LEFT: any }) => {
         justifyContent: 'center',
         paddingTop: 36,
       }}>
-        <Image
-          alt={'ATR.png'}
-          src={`/images/astigmatismAxis/${LEFT_AXIS_IMAGE['CORNEA']}.svg`}
-          width={corneaSize}
-          height={corneaSize}
-          style={{
-            position: 'absolute',
-            marginTop: 52,
-            marginLeft: -35,
-            width: corneaSize,
-            height: corneaSize,
-            transform: `rotate(${180 - LEFT.AXI}deg)`
-          }} />
+        {LEFT.CV > 0 ?
+          <Image
+            alt={'ATR.png'}
+            src={`/images/astigmatismAxis/${LEFT_AXIS_IMAGE['CORNEA']}.svg`}
+            width={corneaSize}
+            height={corneaSize}
+            style={{
+              position: 'absolute',
+              marginTop: 48,
+              marginLeft: -40,
+              width: corneaSize,
+              height: corneaSize,
+              transform: `rotate(${180 - LEFT.AXI}deg)`
+            }} />
+          : null}
         <VRImage name={'axisLeftEyePad'} style={{
           marginTop: 24,
           width: 284,
           height: 180,
           position: 'absolute',
         }} />
-        <Image
-          alt={'AXIS.png'}
-          src={`/images/astigmatismAxis/axisSimulation/AXIS.svg`}
-          width={corneaSize}
-          height={corneaSize}
-          style={{
-            position: 'absolute',
-            marginTop: 52,
-            marginLeft: -35,
-            width: corneaSize,
-            height: corneaSize,
-            transform: `rotate(${180 - LEFT.AXI}deg)`
-          }} />
-        <Image
-          alt={'LEFT_ATR.png'}
-          src={`/images/astigmatismAxis/${LEFT_AXIS_IMAGE['SIMULATION']}.png`}
-          width={90}
-          height={90}
-          style={{
-            position: 'absolute',
-            marginLeft: 250,
-            marginTop: 156
-          }} />
+        {showLeftAxis ?
+          <Image
+            alt={'AXIS.png'}
+            src={`/images/astigmatismAxis/axisSimulation/AXIS.svg`}
+            width={corneaSize}
+            height={corneaSize}
+            style={{
+              position: 'absolute',
+              marginTop: 49,
+              marginLeft: -37,
+              width: corneaSize,
+              height: corneaSize,
+              transform: `rotate(${180 - LEFT.AXI}deg)`
+            }} /> : null}
+        {LEFT.CV > 0 ?
+          <Image
+            alt={'LEFT_ATR.png'}
+            src={`/images/astigmatismAxis/${LEFT_AXIS_IMAGE['SIMULATION']}.png`}
+            width={90}
+            height={90}
+            style={{
+              position: 'absolute',
+              marginLeft: 250,
+              marginTop: 156
+            }} /> : null}
       </Box>
-
     </Box>
   </Box>
 }
@@ -155,7 +163,7 @@ const EYE_AXIS_TEXT = (EYE: any) => {
         paddingLeft: 24,
         paddingRight: 24,
         marginRight: 8
-      }}>{EYE.CV === 'NA' ? '측정불가' : C_11}</VRText>
+      }}>{EYE.CV === 0 ? '측정불가' : C_11}</VRText>
     <VRText
       weight="500"
       style={{
@@ -167,7 +175,8 @@ const EYE_AXIS_TEXT = (EYE: any) => {
         textAlign: 'center',
         paddingLeft: 24,
         paddingRight: 24,
-      }}>{C_12}</VRText>
+        minWidth: 80
+      }}>{EYE.CV > 0 ? C_12 : ''}</VRText>
   </Box>
 }
 
@@ -276,7 +285,7 @@ export const AstigmatismAxisForPad = ({
             style={{
               width: 128,
               height: 15,
-              objectFit:'contain'
+              objectFit: 'contain'
             }} />
         </Box>
         <Image
@@ -288,7 +297,7 @@ export const AstigmatismAxisForPad = ({
             // position: 'absolute',
             // marginLeft: -250,
             marginTop: 8,
-            marginBottom:104
+            marginBottom: 104
           }} />
         <Box style={{
           display: 'flex',

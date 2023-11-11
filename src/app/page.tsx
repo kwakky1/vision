@@ -7,10 +7,14 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { getValidObject, isValidObject, isValidString } from '@/components/utils';
+import dayjs from 'dayjs';
+import { koKR } from '@mui/x-date-pickers/locales';
+import 'dayjs/locale/ko';
 
 interface IFormInputs {
   name: string
-  birthday: string
+  birthday: any
   full_right_sph: number
   full_right_cyl: number
   full_right_axi: number
@@ -26,23 +30,28 @@ interface IFormInputs {
 }
 
 export default function Home() {
+  const searchParams = useSearchParams()
+  const inputString: any = searchParams.get("input") || ''
+  const input: InputData = isValidString(inputString)?JSON.parse(inputString):{}
+  // const userData = GetUserData(input)
+
   const router = useRouter()
   const { control, handleSubmit } = useForm<IFormInputs>({
     defaultValues: {
-      // name: '김태진',
-      // birthday: '19750131',
-      // staff: 'kylie',
-      // store: 'JL',
-      // full_right_sph: 1.5,
-      // full_right_cyl: -1,
-      // full_right_axi: 30,
-      full_right_cv: 1.0,
-      // full_right_add: 1,
-      // full_left_sph: 0.5,
-      // full_left_cyl: -2.0,
-      // full_left_axi: 140,
-      full_left_cv: 1.0,
-      // full_left_add: 2
+      name: getValidObject(input, 'name'),
+      birthday: isValidObject(getValidObject(input, 'birthday'))?dayjs(getValidObject(input, 'birthday')):null,
+      staff: getValidObject(input, 'staff'),
+      store: getValidObject(input, 'store'),
+      full_right_sph: getValidObject(input, 'full', 'right', 'sph'),
+      full_right_cyl: getValidObject(input, 'full', 'right', 'cyl'),
+      full_right_axi: getValidObject(input, 'full', 'right', 'axi'),
+      full_right_cv: getValidObject(input, 'full', 'right', 'cv') || 1.0,
+      full_right_add: getValidObject(input, 'full', 'right', 'add') || 0.00,
+      full_left_sph: getValidObject(input, 'full', 'left', 'sph'),
+      full_left_cyl: getValidObject(input, 'full', 'left', 'cyl'),
+      full_left_axi: getValidObject(input, 'full', 'left', 'axi'),
+      full_left_cv: getValidObject(input, 'full', 'left', 'cv') || 1.0,
+      full_left_add: getValidObject(input, 'full', 'left', 'add') || 0.00,
     }
   });
 
@@ -70,22 +79,6 @@ export default function Home() {
       store: data.store
     }
 
-    // curSummit = {
-    //   name: data.name,
-    //   birthday: data.birthday,
-    //   staff: data.staff,
-    //   store: data.store,
-    //   full_right_sph: data.full_right_sph,
-    //   full_right_cyl: data.full_right_cyl,
-    //   full_right_axi: data.full_right_axi,
-    //   full_right_cv: data.full_right_cv,
-    //   full_right_add: data.full_right_add,
-    //   full_left_sph: data.full_left_sph,
-    //   full_left_cyl: data.full_left_cyl,
-    //   full_left_axi: data.full_left_axi,
-    //   full_left_cv: data.full_left_cv,
-    //   full_left_add: data.full_left_add,
-    // }
     const queryJSON = JSON.stringify(query)
     router.push(`report?input=${queryJSON}`
     )
@@ -95,13 +88,9 @@ export default function Home() {
     console.error(errors)
   }
 
-  const handleStaffChange = (event: SelectChangeEvent) => {
-    // setAge(event.target.value as string);
-  };
-
   return (
     // <Box sx={{ py: { xs: 7.5, sm: 15 } }}>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    
       <Container style={{
         // background: "#ff0000",
         padding: 32,
@@ -155,6 +144,11 @@ export default function Home() {
                 // defaultValue={defaultValue}
                 rules={{ required: '생년월일을 입력하세요' }}
                 render={({ field, fieldState }) => (
+                  <LocalizationProvider 
+                    dateAdapter={AdapterDayjs}
+                    localeText={koKR.components.MuiLocalizationProvider.defaultProps.localeText}
+                    adapterLocale="ko"
+                  >
                   <DatePicker
                     sx={{
                       width: '100%',
@@ -167,6 +161,7 @@ export default function Home() {
                     value={field.value}
                     onChange={field.onChange}
                   />
+                  </LocalizationProvider>
                 )}
               />
             </Grid>
@@ -187,28 +182,6 @@ export default function Home() {
               }}
             >
               <SelectController
-                name="staff"
-                control={control}
-                required='담당자를 선택해주세요'
-                label={'담당자'}
-                variant='filled'
-              >
-                <MenuItem value={'ian'}>ian</MenuItem>
-                <MenuItem value={'joshua'}>joshua</MenuItem>
-                <MenuItem value={'kepi'}>kepi</MenuItem>
-                <MenuItem value={'kylie'}>kylie</MenuItem>
-                <MenuItem value={'luke'}>luke</MenuItem>
-                <MenuItem value={'maddy'}>maddy</MenuItem>
-                <MenuItem value={'nick'}>nick</MenuItem>
-                <MenuItem value={'noah'}>noah</MenuItem>
-              </SelectController>
-            </Grid>
-            <Grid item
-              style={{
-                flex: 1,
-              }}
-            >
-              <SelectController
                 name="store"
                 control={control}
                 required='매장를 알려주세요'
@@ -226,6 +199,28 @@ export default function Home() {
                 <MenuItem value={'EJ'}>을지로점</MenuItem>
               </SelectController>
             </Grid>
+            <Grid item
+              style={{
+                flex: 1,
+              }}
+            >
+                            <SelectController
+                name="staff"
+                control={control}
+                required='담당자를 선택해주세요'
+                label={'담당자'}
+                variant='filled'
+              >
+                <MenuItem value={'ian'}>ian</MenuItem>
+                <MenuItem value={'joshua'}>joshua</MenuItem>
+                <MenuItem value={'kepi'}>kepi</MenuItem>
+                <MenuItem value={'kylie'}>kylie</MenuItem>
+                <MenuItem value={'luke'}>luke</MenuItem>
+                <MenuItem value={'maddy'}>maddy</MenuItem>
+                <MenuItem value={'nick'}>nick</MenuItem>
+                <MenuItem value={'noah'}>noah</MenuItem>
+              </SelectController>
+            </Grid>
           </Grid>
           <Grid item style={{
             width: '100%',
@@ -236,6 +231,7 @@ export default function Home() {
               fontSize: 24,
               height: 64,
               borderRadius: 100,
+              backgroundColor:"#020F50"
             }}
               type="submit"
               variant="contained"
@@ -245,7 +241,6 @@ export default function Home() {
           </Grid>
         </form>
       </Container>
-    </LocalizationProvider>
   );
 }
 
@@ -354,13 +349,13 @@ const RenderFullFieldForm = (control: any) => {
       <TextController
         name="full_right_sph"
         control={control}
-        defaultValue={0.00}
+        // defaultValue={0.00}
         required='Right SPH 를 입력하세요'
       />
       <TextController
         name="full_left_sph"
         control={control}
-        defaultValue={0.00}
+        // defaultValue={0.00}
         required='Left SPH 를 입력하세요'
         style={{ marginTop: 24 }}
       />
@@ -372,13 +367,13 @@ const RenderFullFieldForm = (control: any) => {
       <TextController
         name="full_right_cyl"
         control={control}
-        defaultValue={0.00}
+        // defaultValue={0.00}
         required='Right CYL 를 입력하세요'
       />
       <TextController
         name="full_left_cyl"
         control={control}
-        defaultValue={0.00}
+        // defaultValue={0.00}
         required='Left CYL 를 입력하세요'
         style={{ marginTop: 24 }}
       />
@@ -390,13 +385,13 @@ const RenderFullFieldForm = (control: any) => {
       <TextController
         name="full_right_axi"
         control={control}
-        defaultValue={0.00}
+        // defaultValue={0.00}
         required='Right AXIS 를 입력하세요'
       />
       <TextController
         name="full_left_axi"
         control={control}
-        defaultValue={0.00}
+        // defaultValue={0.00}
         required='Left AXIS 를 입력하세요'
         style={{ marginTop: 24 }}
       />
@@ -411,7 +406,7 @@ const RenderFullFieldForm = (control: any) => {
         defaultValue={1.00}
         required='Right C.V 를 입력하세요'
       >
-        <MenuItem value={'NA'}>NA</MenuItem>
+        <MenuItem value={0}>NA</MenuItem>
         <MenuItem value={0.1}>0.1</MenuItem>
         <MenuItem value={0.2}>0.2</MenuItem>
         <MenuItem value={0.3}>0.3</MenuItem>
@@ -431,7 +426,7 @@ const RenderFullFieldForm = (control: any) => {
         required='Left C.V 를 입력하세요'
         style={{ marginTop: 24 }}
       >
-        <MenuItem value={'NA'}>NA</MenuItem>
+        <MenuItem value={0}>NA</MenuItem>
         <MenuItem value={0.1}>0.1</MenuItem>
         <MenuItem value={0.2}>0.2</MenuItem>
         <MenuItem value={0.3}>0.3</MenuItem>
@@ -442,6 +437,7 @@ const RenderFullFieldForm = (control: any) => {
         <MenuItem value={0.8}>0.8</MenuItem>
         <MenuItem value={0.9}>0.9</MenuItem>
         <MenuItem value={1.0}>1.0</MenuItem>
+        <MenuItem value={2.0}>1.0 초과</MenuItem>
       </SelectController>
     </Grid>
     <Grid item style={{

@@ -42,11 +42,17 @@ export const Header = ({
             size={titleSize}
             weight={part?'500':'700'}
             color={titleColor}
+            style={{
+              letterSpacing: -0.5,
+            }}
           >{`${name} 고객님`}</VRText>
           <VRText 
             size={titleSize}
             color={titleColor}
             weight={part?'100':'500'}
+            style={{
+              letterSpacing: -0.5,
+            }}
           >
             {`을 위한 퍼스널 비전 리포트 ${page}`}
           </VRText>
@@ -63,7 +69,12 @@ export const Header = ({
               marginRight: 8
             }}
           >시력 검사일</VRText>
-          <VRText size={13}>{date}</VRText></>:null}
+          <VRText 
+            size={13}
+            style={{
+              letterSpacing: -0.5,
+            }}
+          >{date}</VRText></>:null}
           {part?
           <><VRText size={24}
             weight={'500'}

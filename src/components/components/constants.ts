@@ -113,7 +113,7 @@ const GetLevelValue = ({
     }
     return {
         level: 0,
-        value: 'NA'
+        value: 0
     }
 }
 
@@ -142,7 +142,7 @@ export const GetReportObject = ({
         value: cyl,
         type: 'CYL'
     })
-    const { level: axiLevel, value: AXI } = GetLevelValue({
+    let { level: axiLevel, value: AXI } = GetLevelValue({
         value: axi,
         type: 'AXI'
     })
@@ -156,6 +156,7 @@ export const GetReportObject = ({
         type: 'ADD'
     })
 
+    AXI = (CYL === 0)?0:AXI
 
     return {
         SPH,
@@ -189,10 +190,6 @@ const getRefractiveError = ({
     ADD: number,
     AGE_INFO: any
 }) => {
-    if (CV === 'NA') {
-        return undefined
-    }
-
     let C_04_SPH = Sprintf(`%.2fD`, 60 - SPH)
     let C_04_SPH_POS = undefined
     let C_04_CYL = Sprintf(`%.2fD`, 60 - SPH - CYL)

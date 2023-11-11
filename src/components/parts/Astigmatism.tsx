@@ -187,8 +187,8 @@ export function AstigmatismSeverity({
         width: ASTIGMATISM_SIZE_WIDTH,
         height: ASTIGMATISM_SIZE_HEIGHT,
       }} />
-      {RIGHT.CV==='NA'?null:<VRIndicator type={'RIGHT'} position={RCYL_POS} top={46}/>}
-      {LEFT.CV==='NA'?null:<VRIndicator type={'LEFT'} position={LCYL_POS} top={0}/>}
+      {RIGHT.CV===0?null:<VRIndicator type={'RIGHT'} position={RCYL_POS} top={46}/>}
+      {LEFT.CV===0?null:<VRIndicator type={'LEFT'} position={LCYL_POS} top={0}/>}
     </Box>
   )
 }

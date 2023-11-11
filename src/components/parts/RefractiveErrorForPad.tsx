@@ -20,10 +20,10 @@ export const RefractiveErrorForPad = ({
 
   const { EYES: { LEFT, RIGHT }, AGE_INFO } = userData
   const titleColor = '#020F50'
-  const eyeOffset = useCYL?{
-    marginTop:-10,
-    marginBottom:10
-  }:{
+  const eyeOffset = useCYL ? {
+    marginTop: -10,
+    marginBottom: 10
+  } : {
 
   }
   return (
@@ -126,8 +126,8 @@ export const RefractiveErrorForPad = ({
         // flex:1,
         position: 'absolute',
         marginTop: -80,
-        left:0,
-        right:0,
+        left: 0,
+        right: 0,
         // backgroundColor:"#ff000033",
         flexDirection: 'row',
         justifyContent: 'center',
@@ -173,11 +173,13 @@ export const RefractiveErrorForPad = ({
           marginLeft: 21,
           width: ASTIGMATISM_SIZE_WIDTH,
           marginTop: 16,
-          marginBottom: 10
+          marginBottom: 10,
+          // backgroundColor:"#ff000033"
         }} />
         : <Severity LEFT={LEFT} RIGHT={RIGHT} AGE_INFO={AGE_INFO} style={{
           marginLeft: 21,
           width: 723,
+          // backgroundColor:"#0000ff33"
         }} />}
     </Box>
   )
@@ -214,7 +216,8 @@ const SPH_CYL = ({
     C_04_CYL_POS,
     C_05,
     C_06,
-    C_07
+    C_07,
+    C_09
   } = refractiveError
 
   const SPHCircleX = (RETINA_LINE_SPH_INIT_X - C_04_SPH_POS * 20)
@@ -222,6 +225,32 @@ const SPH_CYL = ({
   const CYLCircleX = (RETINA_LINE_SPH_INIT_X - C_04_CYL_POS * 20)
   const CYLCircleY = RETINA_LINE_SPH_INIT_Y
 
+  if (CV === 0) {
+    return <Svg
+      width={RETINA_SIZE_WIDTH}
+      height={RETINA_SIZE_HEIGHT}
+    >
+      <Rect
+        cx={(RETINA_LINE_SPH_INIT_X + RETINA_LINE_START_X) / 2 + 4}
+        cy={(RETINA_LINE_SPH_INIT_Y)}
+        width={40}
+        height={20}
+        fill={'#FFFFFF'}
+      >
+        <Text
+          fontSize={20}
+          dominantBaseline='middle'
+          textAnchor='middle'
+          fontWeight='500'
+          // dx={SPHCircleX}
+          dy={1}
+          fill={APP_COLOR.titleColor}
+        >
+          {C_09}
+        </Text>
+      </Rect>
+    </Svg>
+  }
   let CYKCircle
   if (useCYL && CYL !== 0) {
     CYKCircle = <>
@@ -351,7 +380,8 @@ const SPH_CYL_TEXT = (EYE: any) => {
     C_04_CYL_POS,
     C_05,
     C_06,
-    C_07
+    C_07,
+    C_09
   } = refractiveError
   return <Box style={{
     // width: '100%',
@@ -376,8 +406,9 @@ const SPH_CYL_TEXT = (EYE: any) => {
         textAlign: 'center',
         marginRight: 8,
         paddingLeft: 24,
-        paddingRight: 24
-      }}>{C_05}</VRText>
+        paddingRight: 24,
+        minWidth:88
+      }}>{CV > 0?C_05:C_09}</VRText>
     <VRText
       weight="500"
       style={{
@@ -390,8 +421,9 @@ const SPH_CYL_TEXT = (EYE: any) => {
         textAlign: 'center',
         marginRight: 8,
         paddingLeft: 24,
-        paddingRight: 24
-      }}>{C_06}</VRText>
+        paddingRight: 24,
+        minWidth:88
+      }}>{CV > 0?C_06:''}</VRText>
     <Box style={{
       flexGrow: 1,
       display: 'flex',
@@ -415,7 +447,7 @@ const SPH_CYL_TEXT = (EYE: any) => {
           borderColor: "#E2E6F6",
           borderTop: 1,
           borderBottom: 1
-        }}>{C_07}</VRText>
+        }}>{CV > 0?C_07:''}</VRText>
     </Box>
   </Box>
 }

@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { Svg, Circle, Text, Rect, Line } from 'react-svg-path';
-import { MARGIN_VERTICAL, CONTENT_WIDTH, APP_COLOR, VRImage, VRText, GetIndicatorPosition } from '../components'
+import { MARGIN_VERTICAL, CONTENT_WIDTH, APP_COLOR, VRImage, VRText, GetIndicatorPosition, VRIndicator } from '../components'
 import { Sprintf } from '../utils'
 
 
@@ -49,7 +49,7 @@ export const RefractiveError = ({
           <Box style={{
             position: 'absolute',
           }}>
-            <SPH_CYL EYE={RIGHT} useCYL={useCYL}  />
+            <SPH_CYL EYE={RIGHT} useCYL={useCYL} />
           </Box>
           <VRImage name={'RETINA_R'} style={{
             width: RETINA_SIZE_WIDTH,
@@ -106,15 +106,42 @@ const SPH_CYL = ({
     C_04_CYL_POS,
     C_05,
     C_06,
-    C_07
+    C_07,
+    C_09
   } = refractiveError
   const SPHCircleX = RETINA_LINE_SPH_INIT_X - C_04_SPH_POS * 20
   const SPHCircleY = RETINA_LINE_SPH_INIT_Y
   const CYLCircleX = RETINA_LINE_SPH_INIT_X - C_04_CYL_POS * 20
   const CYLCircleY = RETINA_LINE_SPH_INIT_Y
 
+  // if (CV === 0) {
+  //   return <Svg
+  //     width={RETINA_SIZE_WIDTH}
+  //     height={RETINA_SIZE_HEIGHT}
+  //   >
+  //     <Rect
+  //       cx={(RETINA_LINE_SPH_INIT_X + RETINA_LINE_START_X) / 2 + 4}
+  //       cy={(RETINA_LINE_SPH_INIT_Y)}
+  //       width={40}
+  //       height={20}
+  //       fill={'#FFFFFF'}
+  //     >
+  //       <Text
+  //         fontSize={18}
+  //         dominantBaseline='middle'
+  //         textAnchor='middle'
+  //         fontWeight='500'
+  //         // dx={SPHCircleX}
+  //         dy={1}
+  //         fill={APP_COLOR.titleColor}
+  //       >
+  //         {C_09}
+  //       </Text>
+  //     </Rect>
+  //   </Svg>
+  // }
   let CYKCircle
-  if (useCYL && CYL !== 0) {
+  if (useCYL && CYL !== 0 && CV > 0) {
     CYKCircle = <>
       <Line
         sx={RETINA_LINE_START_X}
@@ -170,53 +197,74 @@ const SPH_CYL = ({
       width={'100%'}
       height={'100%'}
     >
-      <Line
-        sx={RETINA_LINE_START_X}
-        sy={RETINA_LINE_START_Y}
-        ex={SPHCircleX}
-        ey={RETINA_LINE_SPH_INIT_Y}
-        stroke={APP_COLOR.titleColor}
-        strokeWidth={0.5}
-      />
-      <Line
-        sx={SPHCircleX}
-        sy={RETINA_LINE_SPH_INIT_Y}
-        ex={RETINA_LINE_END_X}
-        ey={RETINA_LINE_END_Y}
-        stroke={APP_COLOR.titleColor}
-        strokeWidth={0.5}
-      />
-      <Line
-        sx={SPHCircleX}
-        sy={RETINA_LINE_SPH_INIT_Y}
-        ex={SPHCircleX}
-        ey={RETINA_LINE_SPH_INIT_Y + 24}
-        stroke={APP_COLOR.titleColor}
-        strokeWidth={1.0}
-        strokeDasharray={[2, 2]}
-      />
-      <Rect
-        cx={SPHCircleX}
-        cy={RETINA_LINE_SPH_INIT_Y + 31.25}
-        width={40}
-        height={14}
-        fill={'#FFFFFF'}
-      />
-      <Text
-        fontSize={10}
-        dominantBaseline='middle'
-        textAnchor='middle'
-        fontWeight='500'
-        dx={SPHCircleX}
-        dy={RETINA_LINE_SPH_INIT_Y + 32}
-        fill={APP_COLOR.titleColor}
-      >{C_04_SPH}</Text>
-      <Circle
-        size={10}
-        cx={SPHCircleX}
-        cy={SPHCircleY}
-        fill={'#FFB341'}
-      />
+      {CV > 0 ? <>
+        <Line
+          sx={RETINA_LINE_START_X}
+          sy={RETINA_LINE_START_Y}
+          ex={SPHCircleX}
+          ey={RETINA_LINE_SPH_INIT_Y}
+          stroke={APP_COLOR.titleColor}
+          strokeWidth={0.5}
+        />
+        <Line
+          sx={SPHCircleX}
+          sy={RETINA_LINE_SPH_INIT_Y}
+          ex={RETINA_LINE_END_X}
+          ey={RETINA_LINE_END_Y}
+          stroke={APP_COLOR.titleColor}
+          strokeWidth={0.5}
+        />
+        <Line
+          sx={SPHCircleX}
+          sy={RETINA_LINE_SPH_INIT_Y}
+          ex={SPHCircleX}
+          ey={RETINA_LINE_SPH_INIT_Y + 24}
+          stroke={APP_COLOR.titleColor}
+          strokeWidth={1.0}
+          strokeDasharray={[2, 2]}
+        />
+        <Rect
+          cx={SPHCircleX}
+          cy={RETINA_LINE_SPH_INIT_Y + 31.25}
+          width={40}
+          height={14}
+          fill={'#FFFFFF'}
+        />
+        <Text
+          fontSize={10}
+          dominantBaseline='middle'
+          textAnchor='middle'
+          fontWeight='500'
+          dx={SPHCircleX}
+          dy={RETINA_LINE_SPH_INIT_Y + 32}
+          fill={APP_COLOR.titleColor}
+        >{C_04_SPH}</Text>
+        <Circle
+          size={10}
+          cx={SPHCircleX}
+          cy={SPHCircleY}
+          fill={'#FFB341'}
+        />
+      </> :
+        <Rect
+          cx={(RETINA_LINE_SPH_INIT_X + RETINA_LINE_START_X) / 2 + 4}
+          cy={(RETINA_LINE_SPH_INIT_Y)}
+          width={40}
+          height={20}
+          fill={'#FFFFFF'}
+        >
+          <Text
+            fontSize={16}
+            dominantBaseline='middle'
+            textAnchor='middle'
+            fontWeight='500'
+            // dx={SPHCircleX}
+            dy={1}
+            fill={APP_COLOR.titleColor}
+          >
+            {C_09}
+          </Text>
+        </Rect>}
       {CYKCircle}
     </Svg>
     <Box style={{
@@ -243,8 +291,9 @@ const SPH_CYL = ({
           textAlign: 'center',
           marginRight: 8,
           paddingLeft: 24,
-          paddingRight: 24
-        }}>{C_05}</VRText>
+          paddingRight: 24,
+          minWidth: 64
+        }}>{CV > 0 ? C_05 : C_09}</VRText>
       <VRText
         weight="500"
         style={{
@@ -257,8 +306,9 @@ const SPH_CYL = ({
           textAlign: 'center',
           marginRight: 8,
           paddingLeft: 24,
-          paddingRight: 24
-        }}>{C_06}</VRText>
+          paddingRight: 24,
+          minWidth: 80
+        }}>{CV > 0 ? C_06 : ''}</VRText>
       <Box style={{
         flexGrow: 1,
         display: 'flex',
@@ -282,7 +332,7 @@ const SPH_CYL = ({
             borderColor: "#E2E6F6",
             borderTop: 1,
             borderBottom: 1
-          }}>{C_07}</VRText>
+          }}>{CV > 0 ? C_07 : ''}</VRText>
       </Box>
 
     </Box>
@@ -303,48 +353,48 @@ export function Severity({
   const RSPH = 60 - RIGHT.SPH
   const LSPH = 60 - LEFT.SPH
   const { fileNameKey } = AGE_INFO
-  const startX = -7
-  const endX = 704 + 7
+  const startX = 0
+  const endX = 723
   const centerX = (endX + startX) / 2 // 352
-  let   startValue = 52 
-  let   endValue = 60
-  
+  let startValue = 52
+  let endValue = 60
+
   let RSPH_POS = GetIndicatorPosition({
     startX,
-    endX:centerX,
+    endX: centerX,
     startValue,
     endValue,
-    value:RSPH
+    value: RSPH
   })
   if (RSPH > 60) {
     RSPH_POS = GetIndicatorPosition({
-      startX:centerX,
+      startX: centerX,
       endX,
-      startValue:60,
-      endValue:72,
-      value:RSPH
+      startValue: 60,
+      endValue: 72,
+      value: RSPH
     })
-  } 
+  }
   let LSPH_POS = GetIndicatorPosition({
     startX,
-    endX:centerX,
+    endX: centerX,
     startValue,
     endValue,
-    value:LSPH
+    value: LSPH
   })
   if (LSPH > 60) {
     LSPH_POS = GetIndicatorPosition({
-      startX:centerX,
+      startX: centerX,
       endX,
-      startValue:60,
-      endValue:72,
-      value:LSPH
+      startValue: 60,
+      endValue: 72,
+      value: LSPH
     })
   }
   return (
     <Box style={{
       display: 'flex',
-      ...style
+      ...style,
       // flex:1,
       // flexDirection: 'row',
       // justifyContent: 'space-between',
@@ -354,10 +404,14 @@ export function Severity({
       // height: 88
     }}>
       <VRImage name={`severity/${fileNameKey}`} style={{
-        // width: 824,
+        marginTop: 12
+        // width: 723,
         // height: 107
       }} />
-      <VRImage name={'indicator/RU'} style={{
+      {RIGHT.CV === 0 ? null : <VRIndicator type={'RIGHT'} position={RSPH_POS} top={55} />}
+      {LEFT.CV === 0 ? null : <VRIndicator type={'LEFT'} position={LSPH_POS} top={9} />}
+
+      {/* <VRImage name={'indicator/RU'} style={{
         position: 'absolute',
         marginLeft: RSPH_POS,
         marginTop: 55,
@@ -371,7 +425,7 @@ export function Severity({
         marginTop: 9,
         width: 20,
         height: 21
-      }} />
+      }} /> */}
     </Box>
   )
 }
