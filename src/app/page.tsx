@@ -386,13 +386,13 @@ const RenderFullFieldForm = (control: any) => {
         name="full_right_axi"
         control={control}
         // defaultValue={0.00}
-        required='Right AXIS 를 입력하세요'
+        // required='Right AXIS 를 입력하세요'
       />
       <TextController
         name="full_left_axi"
         control={control}
         // defaultValue={0.00}
-        required='Left AXIS 를 입력하세요'
+        // required='Left AXIS 를 입력하세요'
         style={{ marginTop: 24 }}
       />
     </Grid>

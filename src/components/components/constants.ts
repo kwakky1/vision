@@ -293,18 +293,20 @@ const getRefractiveError = ({
         }
     }
 
-    if ((AXI >= 0 && AXI < 30) || (AXI > 150 && AXI <= 180)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/WTR'
-        C_11 = '직난시'
-    }   else if((AXI > 60 && AXI < 120)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/ATR'
-        C_11 = '도난시'
-    }   else if ((AXI >= 30 && AXI <= 60)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS45'
-        C_11 = '사난시'
-    }   else if ((AXI >= 120 && AXI <= 150)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS135'
-        C_11 = '사난시'
+    if (CYL !== 0) {
+        if ((AXI >= 0 && AXI < 30) || (AXI > 150 && AXI <= 180)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/WTR'
+            C_11 = '직난시'
+        }   else if((AXI > 60 && AXI < 120)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/ATR'
+            C_11 = '도난시'
+        }   else if ((AXI >= 30 && AXI <= 60)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS45'
+            C_11 = '사난시'
+        }   else if ((AXI >= 120 && AXI <= 150)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS135'
+            C_11 = '사난시'
+        }
     }
     if (CV === 0) {
         C_09 = '측정 불가'

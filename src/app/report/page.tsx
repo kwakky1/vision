@@ -22,7 +22,7 @@ export default function Page() {
 
   const router = useRouter()
   const { width, height, ref } = useResizeDetector();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(2);
 
   console.log('ReportForIPad size = ', width, height)
 
