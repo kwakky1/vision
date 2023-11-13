@@ -22,13 +22,13 @@ export default function Page() {
 
   const router = useRouter()
   const { width, height, ref } = useResizeDetector();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(2);
 
   console.log('ReportForIPad size = ', width, height)
 
   const pageButtonHeight = PAGE_BUTTON_HEIGHT + PAGE_BUTTON_PADDING * 2
   const pageArray = [Page1, Page2, Page3]
-  if (getValidObject(userData, "ADD", 'value') <= 0.75) {
+  if (getValidObject(userData, "ADD", 'value') >= 0.75) {
       pageArray.push(Page4)
   }
   const totalPageNum = pageArray.length
@@ -39,13 +39,15 @@ export default function Page() {
               width: PAD_PAGE_WIDTH,
               height: PAD_PAGE_HEIGHT,
               padding: 0,
+              paddingTop:40
+            //   marginTop:40,
               // background: "#0000ff11",
           }}
       >
           {width && height ?
               <CarouselProvider
                   naturalSlideWidth={PAD_PAGE_WIDTH}
-                  naturalSlideHeight={PAD_PAGE_HEIGHT - pageButtonHeight}
+                  naturalSlideHeight={PAD_PAGE_HEIGHT - pageButtonHeight - 40}
                   currentSlide={currentSlide}
                   totalSlides={totalPageNum}
               >
@@ -69,7 +71,7 @@ export default function Page() {
                       style={{
                           display: 'flex',
                           flexDirection: 'row',
-                          // backgroundColor: "#00009933",
+                        //   backgroundColor: "#00009933",
                           height: pageButtonHeight,
                           padding: PAGE_BUTTON_PADDING,
                           justifyContent: 'space-between',
@@ -85,7 +87,8 @@ export default function Page() {
                           }}
                           onClick={() => {
                               if (currentSlide === 0) {
-                                  router.back()
+                                router.push(`/?input=${inputString}`)
+                                //   router.back()
                               }   else {
                                   setCurrentSlide(currentSlide - 1)
                               }

@@ -113,7 +113,7 @@ const GetLevelValue = ({
     }
     return {
         level: 0,
-        value: 'NA'
+        value: 0
     }
 }
 
@@ -142,7 +142,7 @@ export const GetReportObject = ({
         value: cyl,
         type: 'CYL'
     })
-    const { level: axiLevel, value: AXI } = GetLevelValue({
+    let { level: axiLevel, value: AXI } = GetLevelValue({
         value: axi,
         type: 'AXI'
     })
@@ -156,6 +156,7 @@ export const GetReportObject = ({
         type: 'ADD'
     })
 
+    AXI = (CYL === 0)?0:AXI
 
     return {
         SPH,
@@ -189,10 +190,6 @@ const getRefractiveError = ({
     ADD: number,
     AGE_INFO: any
 }) => {
-    if (CV === 'NA') {
-        return undefined
-    }
-
     let C_04_SPH = Sprintf(`%.2fD`, 60 - SPH)
     let C_04_SPH_POS = undefined
     let C_04_CYL = Sprintf(`%.2fD`, 60 - SPH - CYL)
@@ -296,18 +293,20 @@ const getRefractiveError = ({
         }
     }
 
-    if ((AXI >= 0 && AXI < 30) || (AXI > 150 && AXI <= 180)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/WTR'
-        C_11 = '직난시'
-    }   else if((AXI > 60 && AXI < 120)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/ATR'
-        C_11 = '도난시'
-    }   else if ((AXI >= 30 && AXI <= 60)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS45'
-        C_11 = '사난시'
-    }   else if ((AXI >= 120 && AXI <= 150)) {
-        AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS135'
-        C_11 = '사난시'
+    if (CYL !== 0) {
+        if ((AXI >= 0 && AXI < 30) || (AXI > 150 && AXI <= 180)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/WTR'
+            C_11 = '직난시'
+        }   else if((AXI > 60 && AXI < 120)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/ATR'
+            C_11 = '도난시'
+        }   else if ((AXI >= 30 && AXI <= 60)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS45'
+            C_11 = '사난시'
+        }   else if ((AXI >= 120 && AXI <= 150)) {
+            AXIS_IMAGE['SIMULATION'] = 'axisSimulation/OS135'
+            C_11 = '사난시'
+        }
     }
     if (CV === 0) {
         C_09 = '측정 불가'

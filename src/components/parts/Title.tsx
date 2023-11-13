@@ -1,7 +1,7 @@
 import { Box, Container, TextField, Checkbox, Typography, Button, Input, Grid } from '@mui/material';
 import { MARGIN_VERTICAL, VRImage, VRText } from '../components'
 
-export function Title({DATE}:{DATE:any}) {
+export function Title({ DATE }: { DATE: any }) {
   return (
     <>
       <Container style={{
@@ -18,8 +18,15 @@ export function Title({DATE}:{DATE:any}) {
           <VRText
             size={27}
             weight={'700'}
+            style={{
+              // letterSpacing: 10
+            }}
           >{`${name} 고객님`}</VRText>
           <VRText size={27}
+            style={{
+              // letterSpacing: 10
+            }}
+
           >
             을 위한 퍼스널 비전 리포트
         </VRText>
