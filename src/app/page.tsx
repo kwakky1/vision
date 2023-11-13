@@ -115,7 +115,7 @@ export default function Home() {
             fontSize={24}
             fontWeight={700}
             textAlign={'center'}
-            color={"#113287"}
+            color={'#113287'}
           >
             비전 리포트 생성을 위한 올바른 값을 입력하세요
           </Typography>
@@ -123,28 +123,33 @@ export default function Home() {
 
         {/* <Grid item> */}
         <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
-          <Grid container direction={'row'}
-            // spacing={1} 
+          <Grid
+            container
+            direction={'row'}
+            // spacing={1}
             style={{
               // backgroundColor: "#0000ff33",
               justifyContent: 'space-between',
-              marginBottom: 16
-            }}>
-            <Grid item
+              marginBottom: 16,
+            }}
+          >
+            <Grid
+              item
               style={{
                 flex: 1,
-                marginRight: 16
+                marginRight: 16,
               }}
             >
               <TextController
                 name="name"
                 control={control}
-                required='이름을 입력하세요'
+                required="이름을 입력하세요"
                 label={'성함'}
-              // variant='filled'
+                // variant='filled'
               />
             </Grid>
-            <Grid item
+            <Grid
+              item
               style={{
                 flex: 1,
               }}
@@ -172,14 +177,18 @@ export default function Home() {
             </Grid>
           </Grid>
           {RenderFullFieldForm(control)}
-          <Grid container direction={'row'}
-            // spacing={1} 
+          <Grid
+            container
+            direction={'row'}
+            // spacing={1}
             style={{
               // backgroundColor: "#0000ff33",
               justifyContent: 'space-between',
-              marginBottom: 16
-            }}>
-            <Grid item
+              marginBottom: 16,
+            }}
+          >
+            <Grid
+              item
               style={{
                 flex: 1,
                 marginRight: 16,
@@ -189,9 +198,9 @@ export default function Home() {
               <SelectController
                 name="staff"
                 control={control}
-                required='담당자를 선택해주세요'
+                required="담당자를 선택해주세요"
                 label={'담당자'}
-                variant='filled'
+                variant="filled"
               >
                 <MenuItem value={'ian'}>ian</MenuItem>
                 <MenuItem value={'joshua'}>joshua</MenuItem>
@@ -203,7 +212,8 @@ export default function Home() {
                 <MenuItem value={'noah'}>noah</MenuItem>
               </SelectController>
             </Grid>
-            <Grid item
+            <Grid
+              item
               style={{
                 flex: 1,
               }}
@@ -211,9 +221,9 @@ export default function Home() {
               <SelectController
                 name="store"
                 control={control}
-                required='매장를 알려주세요'
+                required="매장를 알려주세요"
                 label={'매장'}
-                variant='filled'
+                variant="filled"
               >
                 <MenuItem value={'YK'}>역삼점</MenuItem>
                 <MenuItem value={'YD'}>여의도점</MenuItem>
@@ -227,16 +237,20 @@ export default function Home() {
               </SelectController>
             </Grid>
           </Grid>
-          <Grid item style={{
-            width: '100%',
-          }}>
-            <Button style={{
+          <Grid
+            item
+            style={{
               width: '100%',
-              marginTop: 16,
-              fontSize: 24,
-              height: 64,
-              borderRadius: 100,
             }}
+          >
+            <Button
+              style={{
+                width: '100%',
+                marginTop: 16,
+                fontSize: 24,
+                height: 64,
+                borderRadius: 100,
+              }}
               type="submit"
               variant="contained"
             >
@@ -256,39 +270,41 @@ const TextController = ({
   defaultValue = '',
   label,
   variant,
-  style
+  style,
 }: {
-  name: string,
-  control: any,
-  required?: string,
-  defaultValue?: any
-  label?: string,
-  variant?: any
-  style?: any
+  name: string;
+  control: any;
+  required?: string;
+  defaultValue?: any;
+  label?: string;
+  variant?: any;
+  style?: any;
 }) => {
-  return <Controller
-    name={name}
-    control={control}
-    defaultValue={defaultValue}
-    rules={{ required }}
-    render={({ field, fieldState }) => (
-      <TextField
-        style={{
-          width: '100%',
-          textAlign: 'center',
-          ...(style || {})
-          // flex:1
-        }}
-        variant={variant || 'outlined'}
-        label={label}
-        value={field.value}
-        onChange={field.onChange}
-        error={fieldState.error !== undefined}
-        helperText={fieldState.error && fieldState.error.message}
-      />
-    )}
-  />
-}
+  return (
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+      rules={{ required }}
+      render={({ field, fieldState }) => (
+        <TextField
+          style={{
+            width: '100%',
+            textAlign: 'center',
+            ...(style || {}),
+            // flex:1
+          }}
+          variant={variant || 'outlined'}
+          label={label}
+          value={field.value}
+          onChange={field.onChange}
+          error={fieldState.error !== undefined}
+          helperText={fieldState.error && fieldState.error.message}
+        />
+      )}
+    />
+  );
+};
 
 const SelectController = ({
   name,
@@ -298,169 +314,212 @@ const SelectController = ({
   label,
   variant,
   style,
-  children
+  children,
 }: {
-  name: string,
-  control: any,
-  required?: string,
-  defaultValue?: any
-  label?: string,
-  variant?: any
-  style?: any,
-  children: any[]
+  name: string;
+  control: any;
+  required?: string;
+  defaultValue?: any;
+  label?: string;
+  variant?: any;
+  style?: any;
+  children: any[];
 }) => {
-  return <Controller
-    name={name}
-    control={control}
-    defaultValue={defaultValue}
-    rules={{ required }}
-    render={({ field, fieldState }) => (
-      <TextField
-        style={{
-          width: '100%',
-          textAlign: 'center',
-          ...(style || {})
-          // flex:1
-        }}
-        select
-        variant={variant || 'outlined'}
-        label={label}
-        value={field.value}
-        onChange={field.onChange}
-        error={fieldState.error !== undefined}
-        helperText={fieldState.error && fieldState.error.message}
-      >
-        {children}
-      </TextField>
-    )}
-  />
-}
+  return (
+    <Controller
+      name={name}
+      control={control}
+      defaultValue={defaultValue}
+      rules={{ required }}
+      render={({ field, fieldState }) => (
+        <TextField
+          style={{
+            width: '100%',
+            textAlign: 'center',
+            ...(style || {}),
+            // flex:1
+          }}
+          select
+          variant={variant || 'outlined'}
+          label={label}
+          value={field.value}
+          onChange={field.onChange}
+          error={fieldState.error !== undefined}
+          helperText={fieldState.error && fieldState.error.message}
+        >
+          {children}
+        </TextField>
+      )}
+    />
+  );
+};
 
 const RenderFullFieldForm = (control: any) => {
-  return <Grid container direction={'row'} style={{
-    // backgroundColor: "#0000ff33",
-    marginTop: 24,
-    marginBottom: 24
-  }}>
-    <Grid item style={{ flex: 1 }}>
-      <VRText weight='500' style={{ height: 32 }}>{' '}</VRText>
-      <VRText weight='500' size={20} style={{ marginTop: 12 }}>Right</VRText>
-      <VRText weight='500' size={20} style={{ marginTop: 50 }}>Left</VRText>
-    </Grid>
-    <Grid item style={{
-      flex: 1, marginRight: 16,
-    }}>
-      <VRText weight='500' style={{ height: 32 }}>{'SPH'}</VRText>
-      <TextController
-        name="full_right_sph"
-        control={control}
-        defaultValue={0.00}
-        required='Right SPH 를 입력하세요'
-      />
-      <TextController
-        name="full_left_sph"
-        control={control}
-        defaultValue={0.00}
-        required='Left SPH 를 입력하세요'
-        style={{ marginTop: 24 }}
-      />
-    </Grid>
-    <Grid item style={{
-      flex: 1, marginRight: 16,
-    }}>
-      <VRText weight='500' style={{ height: 32 }}>{'CYL'}</VRText>
-      <TextController
-        name="full_right_cyl"
-        control={control}
-        defaultValue={0.00}
-        required='Right CYL 를 입력하세요'
-      />
-      <TextController
-        name="full_left_cyl"
-        control={control}
-        defaultValue={0.00}
-        required='Left CYL 를 입력하세요'
-        style={{ marginTop: 24 }}
-      />
-    </Grid>
-    <Grid item style={{
-      flex: 1, marginRight: 16,
-    }}>
-      <VRText weight='500' style={{ height: 32 }}>{'AXIS'}</VRText>
-      <TextController
-        name="full_right_axi"
-        control={control}
-        defaultValue={0.00}
-        required='Right AXIS 를 입력하세요'
-      />
-      <TextController
-        name="full_left_axi"
-        control={control}
-        defaultValue={0.00}
-        required='Left AXIS 를 입력하세요'
-        style={{ marginTop: 24 }}
-      />
-    </Grid>
-    <Grid item style={{
-      flex: 1, marginRight: 16,
-    }}>
-      <VRText weight='500' style={{ height: 32 }}>{'C.V'}</VRText>
-      <SelectController
-        name="full_right_cv"
-        control={control}
-        defaultValue={1.00}
-        required='Right C.V 를 입력하세요'
+  return (
+    <Grid
+      container
+      direction={'row'}
+      style={{
+        // backgroundColor: "#0000ff33",
+        marginTop: 24,
+        marginBottom: 24,
+      }}
+    >
+      <Grid item style={{ flex: 1 }}>
+        <VRText weight="500" style={{ height: 32 }}>
+          {' '}
+        </VRText>
+        <VRText weight="500" size={20} style={{ marginTop: 12 }}>
+          Right
+        </VRText>
+        <VRText weight="500" size={20} style={{ marginTop: 50 }}>
+          Left
+        </VRText>
+      </Grid>
+      <Grid
+        item
+        style={{
+          flex: 1,
+          marginRight: 16,
+        }}
       >
-        <MenuItem value={'NA'}>NA</MenuItem>
-        <MenuItem value={0.1}>0.1</MenuItem>
-        <MenuItem value={0.2}>0.2</MenuItem>
-        <MenuItem value={0.3}>0.3</MenuItem>
-        <MenuItem value={0.4}>0.4</MenuItem>
-        <MenuItem value={0.5}>0.5</MenuItem>
-        <MenuItem value={0.6}>0.6</MenuItem>
-        <MenuItem value={0.7}>0.7</MenuItem>
-        <MenuItem value={0.8}>0.8</MenuItem>
-        <MenuItem value={0.9}>0.9</MenuItem>
-        <MenuItem value={1.0}>1.0</MenuItem>
-        <MenuItem value={2.0}>1.0 초과</MenuItem>
-      </SelectController>
-      <SelectController
-        name="full_left_cv"
-        control={control}
-        defaultValue={1.00}
-        required='Left C.V 를 입력하세요'
-        style={{ marginTop: 24 }}
+        <VRText weight="500" style={{ height: 32 }}>
+          {'SPH'}
+        </VRText>
+        <TextController
+          name="full_right_sph"
+          control={control}
+          defaultValue={0.0}
+          required="Right SPH 를 입력하세요"
+        />
+        <TextController
+          name="full_left_sph"
+          control={control}
+          defaultValue={0.0}
+          required="Left SPH 를 입력하세요"
+          style={{ marginTop: 24 }}
+        />
+      </Grid>
+      <Grid
+        item
+        style={{
+          flex: 1,
+          marginRight: 16,
+        }}
       >
-        <MenuItem value={'NA'}>NA</MenuItem>
-        <MenuItem value={0.1}>0.1</MenuItem>
-        <MenuItem value={0.2}>0.2</MenuItem>
-        <MenuItem value={0.3}>0.3</MenuItem>
-        <MenuItem value={0.4}>0.4</MenuItem>
-        <MenuItem value={0.5}>0.5</MenuItem>
-        <MenuItem value={0.6}>0.6</MenuItem>
-        <MenuItem value={0.7}>0.7</MenuItem>
-        <MenuItem value={0.8}>0.8</MenuItem>
-        <MenuItem value={0.9}>0.9</MenuItem>
-        <MenuItem value={1.0}>1.0</MenuItem>
-      </SelectController>
+        <VRText weight="500" style={{ height: 32 }}>
+          {'CYL'}
+        </VRText>
+        <TextController
+          name="full_right_cyl"
+          control={control}
+          defaultValue={0.0}
+          required="Right CYL 를 입력하세요"
+        />
+        <TextController
+          name="full_left_cyl"
+          control={control}
+          defaultValue={0.0}
+          required="Left CYL 를 입력하세요"
+          style={{ marginTop: 24 }}
+        />
+      </Grid>
+      <Grid
+        item
+        style={{
+          flex: 1,
+          marginRight: 16,
+        }}
+      >
+        <VRText weight="500" style={{ height: 32 }}>
+          {'AXIS'}
+        </VRText>
+        <TextController
+          name="full_right_axi"
+          control={control}
+          defaultValue={0.0}
+          required="Right AXIS 를 입력하세요"
+        />
+        <TextController
+          name="full_left_axi"
+          control={control}
+          defaultValue={0.0}
+          required="Left AXIS 를 입력하세요"
+          style={{ marginTop: 24 }}
+        />
+      </Grid>
+      <Grid
+        item
+        style={{
+          flex: 1,
+          marginRight: 16,
+        }}
+      >
+        <VRText weight="500" style={{ height: 32 }}>
+          {'C.V'}
+        </VRText>
+        <SelectController
+          name="full_right_cv"
+          control={control}
+          defaultValue={1.0}
+          required="Right C.V 를 입력하세요"
+        >
+          <MenuItem value={'NA'}>NA</MenuItem>
+          <MenuItem value={0.1}>0.1</MenuItem>
+          <MenuItem value={0.2}>0.2</MenuItem>
+          <MenuItem value={0.3}>0.3</MenuItem>
+          <MenuItem value={0.4}>0.4</MenuItem>
+          <MenuItem value={0.5}>0.5</MenuItem>
+          <MenuItem value={0.6}>0.6</MenuItem>
+          <MenuItem value={0.7}>0.7</MenuItem>
+          <MenuItem value={0.8}>0.8</MenuItem>
+          <MenuItem value={0.9}>0.9</MenuItem>
+          <MenuItem value={1.0}>1.0</MenuItem>
+          <MenuItem value={2.0}>1.0 초과</MenuItem>
+        </SelectController>
+        <SelectController
+          name="full_left_cv"
+          control={control}
+          defaultValue={1.0}
+          required="Left C.V 를 입력하세요"
+          style={{ marginTop: 24 }}
+        >
+          <MenuItem value={'NA'}>NA</MenuItem>
+          <MenuItem value={0.1}>0.1</MenuItem>
+          <MenuItem value={0.2}>0.2</MenuItem>
+          <MenuItem value={0.3}>0.3</MenuItem>
+          <MenuItem value={0.4}>0.4</MenuItem>
+          <MenuItem value={0.5}>0.5</MenuItem>
+          <MenuItem value={0.6}>0.6</MenuItem>
+          <MenuItem value={0.7}>0.7</MenuItem>
+          <MenuItem value={0.8}>0.8</MenuItem>
+          <MenuItem value={0.9}>0.9</MenuItem>
+          <MenuItem value={1.0}>1.0</MenuItem>
+        </SelectController>
+      </Grid>
+      <Grid
+        item
+        style={{
+          flex: 1,
+        }}
+      >
+        <VRText weight="500" style={{ height: 32 }}>
+          {'ADD'}
+        </VRText>
+        <TextController
+          name="full_right_add"
+          control={control}
+          defaultValue={0.0}
+          required="Right ADD 를 입력하세요"
+        />
+        <TextController
+          name="full_left_add"
+          control={control}
+          defaultValue={0.0}
+          required="Left ADD 를 입력하세요"
+          style={{ marginTop: 24 }}
+        />
+      </Grid>
     </Grid>
-    <Grid item style={{
-      flex: 1
-    }}>
-      <VRText weight='500' style={{ height: 32 }}>{'ADD'}</VRText>
-      <TextController
-        name="full_right_add"
-        control={control}
-        defaultValue={0.00}
-        required='Right ADD 를 입력하세요'
-      />
-      <TextController
-        name="full_left_add"
-        control={control}
-        defaultValue={0.00}
-        required='Left ADD 를 입력하세요'
-        style={{ marginTop: 24 }}
-      />
-    </Grid>
-  </Grid>
-}
+  );
+};
