@@ -107,7 +107,6 @@ export default function Home() {
 
   return (
     // <Box sx={{ py: { xs: 7.5, sm: 15 } }}>
-
     <Container
       style={{
         // background: "#ff0000",
