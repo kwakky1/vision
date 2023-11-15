@@ -127,7 +127,7 @@ export default function Home() {
           textAlign={'center'}
           color={'#113287'}
         >
-          비전 리포트 생성을 위한 올바른 값을 입력하세요
+          비전 리포트 생성을 위한 올바른 값을 입력하세요 (1)
         </Typography>
       </Grid>
 
