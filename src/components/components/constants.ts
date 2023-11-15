@@ -38,7 +38,7 @@ const VALUE_RANGE = {
         LEVEL: 0.25
     },
     AXI: {
-        MIN_VALUE: 1,
+        MIN_VALUE: 0,
         MAX_VALUE: 180,
         LEVEL: 1
     },
