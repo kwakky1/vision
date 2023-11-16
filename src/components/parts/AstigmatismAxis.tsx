@@ -253,6 +253,26 @@ export const AstigmatismAxis = ({
   style?: any
 }) => {
   const { EYES: { LEFT, RIGHT }, AGE_INFO } = userData
+
+  let cautionName = 'caution1'
+  const LSPH = LEFT.SPH || 0
+  const RSPH = RIGHT.SPH || 0
+
+  const AGE = AGE_INFO.AGE
+  if (AGE >= 7 && AGE <= 18) {
+    if (LSPH < 0 && RSPH < 0) {
+      cautionName = 'caution1YouthMyopia'  
+    } else if (LSPH > 0 && RSPH > 0) {
+      cautionName = 'caution1YouthHyperopia'  
+    }
+  } else if (AGE > 18) {
+    if (LSPH < 0 && RSPH < 0 && Math.min(LSPH, RSPH) < -6) {
+      cautionName = 'caution1Myopia'
+    } else if (LSPH > 0 && RSPH > 0 && Math.max(LSPH, RSPH) > 2) {
+      cautionName = 'caution1Hyperopia'
+    }
+  } 
+
   return (
     <Box style={{
       // display: 'flex', 
@@ -315,7 +335,7 @@ export const AstigmatismAxis = ({
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}>
-        <VRImage name={'caution/caution1'} style={{
+        <VRImage name={`caution/${cautionName}`} style={{
           width: 323,
           height: 48
         }} />
