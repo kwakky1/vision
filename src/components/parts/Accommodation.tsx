@@ -24,7 +24,7 @@ export const Accommodation = ({
         C_22,
         C_23,
         AXIS_IMAGE: RIGHT_AXIS_IMAGE
-      } = getValidObject(LEFT_ADD > RIGHT_ADD?LEFT:RIGHT, 'refractiveError')
+    } = getValidObject(LEFT_ADD > RIGHT_ADD ? LEFT : RIGHT, 'refractiveError')
     const { AGE, ADD_AgeForAverage } = AGE_INFO
     return (
         <Box style={{
@@ -39,17 +39,27 @@ export const Accommodation = ({
                 flexDirection: 'row',
                 marginLeft: -6
             }}>
-                <VRImage name={'accommodation/background'} style={{
-                    width: 734,
-                    height: 644
-                }} />
+                <Box style={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}>
+                    <VRImage name={'accommodation/background1'} style={{
+                        width: 734,
+                        height: 300
+                    }} />
+                    <VRImage name={'accommodation/background2'} style={{
+                        width: 734,
+                        height: 344
+                    }} />
+                </Box>
                 <Box style={{
                     // flex: 1,
                     // display: 'flex',
                     flexDirection: 'column',
                     position: 'absolute',
                     marginTop: 469,
-                    marginLeft:6,
+                    marginLeft: 6,
                     // backgroundColor: "#ff000033",
 
                     // marginTop:100
