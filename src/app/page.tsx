@@ -54,8 +54,8 @@ export default function Home() {
   const [leftCVValue, setLeftCVValue] = useState(1);
   const [rightCVValue, setRightCVValue] = useState(1);
 
-  const validateValue = (leftCVValue !== 0) && (rightCVValue !== 0)
-  console.log('validateValue = ', validateValue)
+  const validateValue = leftCVValue !== 0 && rightCVValue !== 0;
+  console.log('validateValue = ', validateValue);
   const router = useRouter();
   const { control, handleSubmit } = useForm<IFormInputs>({
     defaultValues: {
@@ -160,7 +160,7 @@ export default function Home() {
               control={control}
               required="이름을 입력하세요"
               label={'성함'}
-            // variant='filled'
+              // variant='filled'
             />
           </Grid>
           <Grid
@@ -200,7 +200,12 @@ export default function Home() {
             />
           </Grid>
         </Grid>
-        {RenderFullFieldForm(control, validateValue, setLeftCVValue, setRightCVValue)}
+        {RenderFullFieldForm(
+          control,
+          validateValue,
+          setLeftCVValue,
+          setRightCVValue,
+        )}
         <Grid
           container
           direction={'row'}
@@ -256,6 +261,7 @@ export default function Home() {
               <MenuItem value={'smith'}>smith</MenuItem>
               <MenuItem value={'alpha'}>alpha</MenuItem>
               <MenuItem value={'jade'}>jade</MenuItem>
+              <MenuItem value={'better'}>better</MenuItem>
             </SelectController>
           </Grid>
         </Grid>
@@ -337,7 +343,7 @@ const SelectController = ({
   variant,
   style,
   children,
-  setValue
+  setValue,
 }: {
   name: string;
   control: any;
@@ -347,7 +353,7 @@ const SelectController = ({
   variant?: any;
   style?: any;
   children: any[];
-  setValue?
+  setValue?;
 }) => {
   return (
     <Controller
@@ -368,10 +374,10 @@ const SelectController = ({
           label={label}
           value={field.value}
           onChange={(event) => {
-            const { value } = event.target
-            console.log('SelectController onChanged = ', value)
-            field.onChange(event)
-            setValue?.(value)
+            const { value } = event.target;
+            console.log('SelectController onChanged = ', value);
+            field.onChange(event);
+            setValue?.(value);
           }}
           error={fieldState.error !== undefined}
           helperText={fieldState.error && fieldState.error.message}
@@ -384,11 +390,11 @@ const SelectController = ({
 };
 
 const RenderFullFieldForm = (
-  control: any, 
+  control: any,
   validateValue: boolean,
   setLeftCVValue: any,
-  setRightCVValue: any
-  ) => {
+  setRightCVValue: any,
+) => {
   return (
     <Grid
       container
@@ -424,13 +430,13 @@ const RenderFullFieldForm = (
           name="full_right_sph"
           control={control}
           // defaultValue={0.00}
-          required={validateValue?"Right SPH 를 입력하세요":undefined}
+          required={validateValue ? 'Right SPH 를 입력하세요' : undefined}
         />
         <TextController
           name="full_left_sph"
           control={control}
           // defaultValue={0.00}
-          required={validateValue?"Left SPH 를 입력하세요":undefined}
+          required={validateValue ? 'Left SPH 를 입력하세요' : undefined}
           style={{ marginTop: 24 }}
         />
       </Grid>
@@ -448,13 +454,13 @@ const RenderFullFieldForm = (
           name="full_right_cyl"
           control={control}
           // defaultValue={0.00}
-          required={validateValue?"Right CYL 를 입력하세요":undefined}
+          required={validateValue ? 'Right CYL 를 입력하세요' : undefined}
         />
         <TextController
           name="full_left_cyl"
           control={control}
           // defaultValue={0.00}
-          required={validateValue?"Left CYL 를 입력하세요":undefined}
+          required={validateValue ? 'Left CYL 를 입력하세요' : undefined}
           style={{ marginTop: 24 }}
         />
       </Grid>
@@ -471,8 +477,8 @@ const RenderFullFieldForm = (
         <TextController
           name="full_right_axi"
           control={control}
-        // defaultValue={0.00}
-        // required='Right AXIS 를 입력하세요'
+          // defaultValue={0.00}
+          // required='Right AXIS 를 입력하세요'
         />
         <TextController
           name="full_left_axi"
@@ -547,13 +553,13 @@ const RenderFullFieldForm = (
           name="full_right_add"
           control={control}
           defaultValue={0.0}
-          required={validateValue?"Right ADD 를 입력하세요":undefined}
+          required={validateValue ? 'Right ADD 를 입력하세요' : undefined}
         />
         <TextController
           name="full_left_add"
           control={control}
           defaultValue={0.0}
-          required={validateValue?"Left ADD 를 입력하세요":undefined}
+          required={validateValue ? 'Left ADD 를 입력하세요' : undefined}
           style={{ marginTop: 24 }}
         />
       </Grid>
