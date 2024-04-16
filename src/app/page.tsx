@@ -255,6 +255,7 @@ export default function Home() {
               label={'담당자'}
               variant="filled"
             >
+              <MenuItem value={'nick'}>nick</MenuItem>
               <MenuItem value={'luke'}>luke</MenuItem>
               <MenuItem value={'vance'}>vance</MenuItem>
               <MenuItem value={'owen'}>owen</MenuItem>
